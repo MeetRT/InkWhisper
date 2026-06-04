@@ -1,0 +1,31 @@
+# Node modules (both frontend and backend)
+**/node_modules/
+
+# Build artifacts
+frontend/.svelte-kit/
+frontend/build/
+frontend/.output/
+frontend/.vercel/
+frontend/.netlify/
+
+# SQLite database files
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+
+# Environment files with secrets
+**/.env
+**/.env.local
+**/.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Vite timestamps
+**/vite.config.*.timestamp-*

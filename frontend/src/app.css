@@ -1,0 +1,105 @@
+/*
+ * app.css — InkWhisper global stylesheet
+ *
+ * Defines the CSS custom-property contract used by all components for
+ * theme-switching.  Actual values are injected at runtime by the
+ * readerSettings store via `document.documentElement.style.setProperty()`.
+ *
+ * Structure:
+ *  1. CSS custom properties (design tokens)
+ *  2. CSS reset & base
+ *  3. Theme attribute selectors (static fallback when JS hydrates slowly)
+ *  4. Typography helpers
+ */
+
+/* ─── 1. Design Tokens / CSS Variables ─────────────────────────────────────── */
+
+:root {
+  /* Reading surface – overwritten by JS readerSettings store */
+  --iw-bg: #ffffff;
+  --iw-text: #1a1a1a;
+
+  /* Typography – overwritten by JS readerSettings store */
+  --iw-font-family: Georgia, Cambria, 'Times New Roman', serif;
+  --iw-font-size: 1.125rem;
+
+  /* Fixed design constants */
+  --iw-max-prose-width: 650px;
+  --iw-line-height: 1.8;
+  --iw-paragraph-spacing: 24px;
+
+  /* Motion */
+  --iw-transition-color: background 0.25s ease, color 0.25s ease;
+}
+
+/* ─── 2. Static Theme Fallbacks (data-theme attribute) ─────────────────────── */
+
+:root[data-theme='light'] {
+  --iw-bg: #ffffff;
+  --iw-text: #1a1a1a;
+}
+
+:root[data-theme='dark'] {
+  --iw-bg: #121212;
+  --iw-text: #e0e0e0;
+}
+
+:root[data-theme='sepia'] {
+  --iw-bg: #f4ecd8;
+  --iw-text: #5b4636;
+}
+
+/* ─── 3. CSS Reset & Base ───────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Prevent layout shift on scrollbar appear */
+  scrollbar-gutter: stable;
+  /* Smooth scroll for same-page anchors */
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--iw-bg, #ffffff);
+  color: var(--iw-text, #1a1a1a);
+  font-family: var(--iw-font-family, Georgia, Cambria, serif);
+  font-size: var(--iw-font-size, 1rem);
+  line-height: var(--iw-line-height, 1.8);
+  transition: var(--iw-transition-color);
+  /* Prevent FOUC on theme switch */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+/* ─── 4. Typography Helpers ─────────────────────────────────────────────────── */
+
+/* Reusable prose container — used by ReaderCanvas and any other prose block */
+.prose-block {
+  max-width: var(--iw-max-prose-width, 650px);
+  margin-inline: auto;
+  font-family: var(--iw-font-family, Georgia, Cambria, serif);
+  font-size: var(--iw-font-size, 1.125rem);
+  line-height: var(--iw-line-height, 1.8);
+}
+
+.prose-block p {
+  margin-top: 0;
+  margin-bottom: var(--iw-paragraph-spacing, 24px);
+}
