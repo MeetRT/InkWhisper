@@ -1,0 +1,21 @@
+// Prisma schema for InkWhisper
+// Database: SQLite (lightweight, zero-config, self-hosted)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model StoryNode {
+  id                 Int      @id @default(autoincrement())
+  title              String
+  standaloneSynopsis String   @default("")
+  textContent        String
+  wordCount          Int      @default(0)
+  isPremium          Boolean  @default(false)
+  createdAt          DateTime @default(now())
+}
